@@ -35,9 +35,27 @@ Tools for helping me for testing system
 
 Folder test scripts
 ```
-  /tests
+  /tests/Feature/CollectTest.php this file made for testing collect page.
 ```
 ## How do you prevent SQL injection?
 Laravel freamwork has ORM "https://laravel.com/docs/5.6/eloquent" help me for prevent SQL injection?
 i think right now have a lot of tools like this.because it's good way than execute a query by myself.
+
+## Explain about files in project
+
+
+```
+  app -
+      - Http
+          - Controllers
+              - CollectFormController.php (It's controller of collect page)
+               - Dashboard
+                    - ThaiPeoplesController.php (It's controller of admin page)
+      - Models
+        - CoreModel.php (It's abstract for all model)
+        - People.php (It's ORM of peoples table and have factory for create)
+        - PeopleLists.php (It's ORM for query)
+        
+  resources ('templates')
+```
 
