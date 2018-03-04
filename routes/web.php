@@ -16,11 +16,22 @@ Route::get('/', function () {
 });
 
 
+
+
+Route::get('/form', [
+    'uses' => 'CollectFormController@index'
+]);
+
+Route::post('/form', [
+    'uses' => 'CollectFormController@index'
+]);
+
+
 /*
  * Admin panel
  *
  */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', [
+    'uses' => 'Dashboard\ThaiPeoplesController@index'
+]);

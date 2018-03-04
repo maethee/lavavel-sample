@@ -1,81 +1,76 @@
-<!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>{{ $page_title or "AdminLTE Dashboard" }}</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- Bootstrap 3.3.2 -->
-    <link href="{{ asset("/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
-    <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Ionicons -->
-    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="{{ asset("/bower_components/admin-lte/dist/css/AdminLTE.min.css")}}" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-          page. However, you can choose any other skin. Make sure you
-          apply the skin class to the body tag so the changes take effect.
-    -->
-    <link href="{{ asset("/bower_components/admin-lte/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
+@extends('layouts.dashboard')
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body class="skin-blue">
-    <div class="wrapper">
-
-      <!-- Header -->
-      @include('header')
-
-      <!-- Sidebar -->
-      @include('sidebar')
-
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            {{ $page_title or "Page Title" }}
-            <small>{{ $page_description or null }}</small>
-          </h1>
-          <!-- You can dynamically generate breadcrumbs here -->
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
-          </ol>
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-          <!-- Your Page Content Here -->
-          @yield('content')
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
-
-      <!-- Footer -->
-
-
-    </div><!-- ./wrapper -->
-
-    <!-- REQUIRED JS SCRIPTS -->
-
-    <!-- jQuery 2.1.3 -->
-    <script src="{{ asset ("/bower_components/jquery/dist/jquery.min.js") }}"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="{{ asset ("/bower_components/bootstrap/dist/js/bootstrap.min.js") }}" type="text/javascript"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset ("/bower_components/admin-lte/dist/js/adminlte.min.js") }}" type="text/javascript"></script>
-
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-          Both of these plugins are recommended to enhance the
-          user experience -->
-  </body>
-</html>
+@section('content')
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Data Table With Full Features</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                <div class="row">
+                    <form action="{{ url('dashboard')}}" method="get">
+                    <div class="col-sm-6">
+                        <div class="dataTables_length" ><label>Show <select name="limit"  onchange='this.form.submit()'aria-controls="example1" class="form-control input-sm">
+                                    <?php
+                                    $display_amount = isset($query["limit"]) ?$query["limit"] : 20;
+                                    ?>
+                                    @foreach ($ranges as  $value )
+                                        <option value="{{$value}}" <?php if($display_amount == $value){ echo "selected"; } ?> >{{ $value }}</option>
+                                    @endforeach
+                                </select> entries</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="text-align: right;">
+                        <div class="form-group">
+                            <label for="sel1">Search</label>
+                            <select class="form-control" id="search_field" name="search_field">
+                                <?php
+                                $search_field = isset($query["search_field"]) ?$query["search_field"] : '';
+                                $search_text = isset($query["search_text"]) ?$query["search_text"] : '';
+                                ?>
+                                @foreach ($filters as  $key => $node )
+                                    <option value="{{$key}}" <?php if($search_field == $key){ echo "selected"; } ?> >{{ $node }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" class="form-control" id="search_text" name="search_text" value="{{ $search_text  }}">
+                            <button class="btn btn-secondary" type="submit">Go!</button>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 283px;">ID</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width: 345px;">Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width: 308px;">Thai ID</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width: 245px;">Gender</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width: 181px;">Mobile</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($results as $value)
+                                <tr role="row" class="odd">
+                                    <td class="sorting_1">{{ $value->getID() }}</td>
+                                    <td>{{ $value->getName() }}</td>
+                                    <td>{{ $value->getThaiID() }}</td>
+                                    <td>{{ $value->getGender() }}</td>
+                                    <td>{{ $value->getMobile() }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table></div></div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        {{ $results->appends(request()->query())->links() }}
+                    </div>
+                   </div></div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+@endsection
