@@ -10,7 +10,7 @@
 
 Explain step for making code or program.
 
-1. when I got some of requirements from customer. The first, I will write human language. For exsample, I'm going to make a program for collecting Thai ID.
+When I got some of requirements from customer. The first, I will write human language. For example, I'm going to make a program for collecting Thai ID.
 
  I design the asset of data
 ```
@@ -30,7 +30,7 @@ When I've done this process. I'm going to write the code then.
 
 ## Step to test.
 Tools for helping me to test the system.
-* Postman : I use to make request to test API and debug while I'm still developing program
+* Postman : I use to make request to test API and Debug while I'm still developing program
 * Phpunit : I usually write testscript along side.
 
 Folder test scripts
@@ -38,7 +38,7 @@ Folder test scripts
   /tests/Feature/CollectTest.php this file made for testing collect page.
 ```
 ## How do you prevent SQL injection?
-Laravel freamwork has ORM "https://laravel.com/docs/5.6/eloquent" help me for preventing SQL injection
+Laravel freamwork has ORM "https://laravel.com/docs/5.6/eloquent" help me for preventing SQL injection.
 I think right now have a lot of tools like this. Because it's a better way than execute a query by myself.
 
 ## Explain about files in project
